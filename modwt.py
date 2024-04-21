@@ -4,12 +4,6 @@ import pywt
 from scipy.ndimage import convolve1d
 
 def circular_convolve_d(h_t, v_j_1, j):
-    '''
-    jth level decomposition
-    h_t: \tilde{h} = h / sqrt(2)
-    v_j_1: v_{j-1}, the (j-1)th scale coefficients
-    return: w_j (or v_j)
-    '''
     N = len(v_j_1)
     w_j = np.zeros(N)
     ker = np.zeros(len(h_t) * 2**(j - 1))
@@ -23,10 +17,6 @@ def circular_convolve_d(h_t, v_j_1, j):
 
 
 def circular_convolve_s(h_t, g_t, w_j, v_j, j):
-    '''
-    (j-1)th level synthesis from w_j, w_j
-    see function circular_convolve_d
-    '''
     N = len(v_j)
 
     h_ker = np.zeros(len(h_t) * 2**(j - 1))
@@ -50,10 +40,6 @@ def circular_convolve_s(h_t, g_t, w_j, v_j, j):
 
 
 def modwt(x, filters, level):
-    '''
-    filters: 'db1', 'db2', 'haar', ...
-    return: see matlab
-    '''
     # filter
     wavelet = pywt.Wavelet(filters)
 
@@ -71,7 +57,6 @@ def modwt(x, filters, level):
     return np.vstack(wavecoeff)
 
 def imodwt(w, filters):
-    ''' inverse modwt '''
     # filter
     wavelet = pywt.Wavelet(filters)
     h = wavelet.dec_hi
