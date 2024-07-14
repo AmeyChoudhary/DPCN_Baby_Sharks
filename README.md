@@ -23,6 +23,7 @@ In our project, we aim to understand the novel approach for forecasting epidemic
     - [MODWT Approach](#modwt-approach)
     - [EWNET Model Architecture](#ewnet-model-architecture)
     - [EWNET Model Working](#ewnet-model-working)
+- [Implementing our own EWNET model](#implementing-our-own-ewnet)
 - [Experimentation Results of EWNETs on Datasets](#experimentation-results-of-ewnets-on-datasets)
 - [Using Other Signal Decomposition Methods](#using-other-signal-decomposition-methods)
   - [Seasonal and Trend Decomposition Using Loess (STL)](#seasonal-and-trend-decomposition-using-loess-stl)
@@ -86,6 +87,33 @@ The paper proposes a novel model, EWNETs, which utilizes MODWT signal decomposit
 
 ---
 
+## Implementing Our Own EWNET
+We have implemented our EWNET in the following manner:
+
+### 1. Data Preprocessing
+- Read the data from the file.
+- Choose "Weekly" or "Monthly" based on the dataset type.
+- Choose the type of forecast horizon.
+- Scale the data from 1 to -1.
+
+### 2. MODWT Algorithm
+- Use the MODWT algorithm with Haar filter to decompose the signal.
+- Determine the number of levels based on the natural logarithm of the number of data points.
+- Decompose the signal into details and smooth coefficients.
+
+### 3. Training of Ensemble of Neural Networks
+- Train neural networks using the decomposed coefficients.
+- Each neural network has p input neurons, k hidden neurons, and 1 output neuron.
+- Use sigmoid activation function.
+- Train using gradient descent.
+
+### 4. Testing and Recomposition
+- Predict the next h points using the trained neural networks.
+- Use autoregressive nature for predictions.
+- Recompose the predicted coefficients to get the final output.
+
+---
+
 ## Experimentation Results of EWNETs on Datasets
 
 The report includes detailed experimentation results of EWNETs on various datasets, demonstrating its effectiveness in short, medium, and long-term forecasts compared to other methods.
@@ -138,4 +166,4 @@ The report concludes that EWNETs, leveraging MODWT for signal decomposition, pro
 
 ## Implementation
 
-The implementation of EWNETs and other signal decomposition methods, along with the code and datasets used, can be found on our GitHub repository: [GitHub](https://github.com/AmeyChoudhary/DPCN_Baby_Sharks/tree/main/Amey).
+The implementation of EWNETs and other signal decomposition methods, along with the code, datasets used and the detailed report, can be found on our GitHub repository: [GitHub](https://github.com/AmeyChoudhary/DPCN_Baby_Sharks/tree/main/Amey).
