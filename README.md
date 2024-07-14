@@ -120,9 +120,8 @@ EWT adaptively decomposes a signal based on its content, providing a flexible an
 
 ## Experimentation Results
 
-The report includes comparative experimentation results of the various signal decomposition methods on different datasets:
+The report includes comparative experimentation results of the various signal decomposition methods, apart from EWNET, on different datasets:
 
-- **MODWT**
 - **STL**
 - **SSA**
 - **EMD**
